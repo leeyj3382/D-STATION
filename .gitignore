@@ -27,3 +27,6 @@ firebase.*
 .firebaserc
 firestore.*
 .firebase
+
+# Local Firebase config (do not commit)
+src/firebase/
