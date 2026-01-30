@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "staging": "d-station-ef28b",
+    "default": "d-station-ef28b"
+  },
+  "targets": {},
+  "etags": {}
+}

@@ -1,0 +1,277 @@
+/* 그리드 컨테이너 설정 */
+.custom-grid-container {
+  width: 100%;
+  max-width: 1000px; /* 전체 컨테이너 너비 증가 */
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 그리드 헤더 스타일링 */
+.grid-header {
+  text-align: left;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  /* padding: 0 20px; */
+}
+
+.grid-header h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.grid-header p {
+  margin: 0;
+  color: #666;
+}
+
+.grid-wrapper {
+  width: 100%;
+  max-width: 800px; /* 그리드 최대 너비 증가 */
+  aspect-ratio: 1;
+  padding: 20px; /* 패딩 감소 */
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+/* 8x8 그리드 레이아웃 설정 */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 1px;
+  background: #797979;
+  padding: 1px;
+  aspect-ratio: 1;
+  height: 100%; /* 높이 100% 추가 */
+}
+
+/* 개별 그리드 셀 */
+.grid-cell {
+  aspect-ratio: 1;
+  background: white;
+  position: relative;
+  cursor: pointer;
+}
+
+/* 삼각형 영역 기본 스타일 */
+.triangle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  /* 각 삼각형의 기본 경계선 설정 */
+  border: 1px solid #ffffff;
+}
+
+/* 호버링 효과:
+   - 배경이 흰색(미선택)일 때: 옅은 회색(#f5f5f5)으로 변경
+   - 색이 있을 때: filter로 채도(saturate) 20% 증가, 밝기(brightness) 5% 증가
+*/
+.triangle:hover {
+  z-index: 1;
+}
+
+.triangle[style*="transparent"]:hover {
+  background-color: #d0d0d0 !important;
+}
+
+.triangle:not([style*="transparent"]):hover {
+  filter: saturate(1.2) brightness(1.05);
+}
+
+/* 삼각형 영역 클리핑 및 경계선 설정 
+   - clip-path: 각 방향별로 삼각형 모양 지정
+   - border-[방향]: none으로 설정하여 중복되는 경계선 제거
+   
+   예시) top 삼각형의 경우:
+   - (0 0): 좌측 상단 시작점
+   - (100% 0): 우측 상단으로 직선
+   - (50% 50%): 중앙점으로 대각선
+   - border-bottom: none: 아래쪽 경계선 제거 (bottom 삼각형과 만나는 부분)
+*/
+.triangle.top {
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  border-bottom: none; /* bottom 삼각형과 만나는 경계선 제거 */
+}
+
+.triangle.right {
+  clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+  border-left: none; /* left 삼각형과 만나는 경계선 제거 */
+}
+
+.triangle.bottom {
+  clip-path: polygon(0 100%, 100% 100%, 50% 50%);
+  border-top: none; /* top 삼각형과 만나는 경계선 제거 */
+}
+
+.triangle.left {
+  clip-path: polygon(0 0, 0 100%, 50% 50%);
+  border-right: none; /* right 삼각형과 만나는 경계선 제거 */
+}
+
+/* 그리드 라인 (대각선) 설정
+   - 45도와 -45도 방향의 1px 실선
+   - 실선 색상: #ddd, 나머지 부분: 투명
+   - 전체 셀 크기에 맞춰 크기 조정
+*/
+.grid-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image: linear-gradient(45deg, #ddd 1px, transparent 1px),
+    linear-gradient(-45deg, #ddd 1px, transparent 1px);
+  background-size: 100% 100%;
+  background-position: center center;
+}
+
+/* 컬러 피커 영역 */
+.color-picker {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px; /* 그리드와 동일한 max-width */
+  margin-left: auto;
+  margin-right: auto;
+  /*padding: 0 20px;*/ /* 그리드와 동일한 패딩 */
+  justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+.color-label {
+  font-weight: bold;
+}
+
+.color-input {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.color-code {
+  font-family: monospace;
+}
+
+/* 제출 버튼 컨테이너 */
+.submit-button-container {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 px;
+}
+
+/* 제출 버튼 */
+.submit-button {
+  padding: 10px 20px;
+  background-color: #868686;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background-color: #3a3a3a;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.success-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  text-align: center;
+}
+
+.success-popup p {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+}
+
+.eraser-button {
+  padding: 8px 16px;
+  margin-left: 16px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.eraser-button:hover {
+  background-color: #e0e0e0;
+}
+
+.eraser-button.active {
+  background-color: #ff4444;
+  color: white;
+  border-color: #ff4444;
+}
+
+.eraser-cursor {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewport='0 0 24 24' style='fill:black;font-size:24px;'><text y='20'>🧽</text></svg>")
+      0 20,
+    auto;
+}
+
+@media (max-width: 600px) {
+  .color-picker {
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-width: 0;
+  }
+  .color-input {
+    width: 36px;
+    height: 36px;
+    min-width: 32px;
+    min-height: 32px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .color-code {
+    font-size: 13px;
+  }
+  .eraser-button {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
