@@ -28,5 +28,6 @@ firebase.*
 firestore.*
 .firebase
 
-# Local Firebase config (do not commit)
-src/firebase/
+
+.env
+
